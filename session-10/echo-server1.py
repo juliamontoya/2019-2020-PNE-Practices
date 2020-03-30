@@ -18,6 +18,7 @@ ls.bind((IP, PORT))
 
 
 
+
 #step 3 : convert this general socket into a listening socket
 ls.listen()
 
