@@ -4,9 +4,9 @@
 #example working!
 
 #store the result
-res=0
+count=0
 
 for i in range (1, 21):
-    res += i
+    count += i
 
-    print("total sum :", res)
+    print("total sum :", count)
