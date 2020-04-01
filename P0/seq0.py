@@ -34,3 +34,19 @@ def seq_count(seq):
 # Imaging we have this sequence: "ATTCG". Its reverse is: "GCTTA"
 def seq_reverse(seq):
     return seq[::-1]
+
+#para el ejercicio7
+#Implement the seq_complement(seq) function, that calculates a new sequence composed of the complement base of each of the original bases.
+# The bases work in pairs. A and T are complement, as well as C and G.
+# Therefore, the complement sequence of "ATTCG" is "TAAGC"
+def seq_complement(seq):
+    bases = ["A", "C", "T", "G"]
+    bases_complementary = ["T", "G", "A", "C"]
+    dict_bases_complemenytary = dict(zip(bases, bases_complementary))
+    complementary = ""
+    for i in seq:
+        for base, bases_co in dict_bases_complemenytary.items():
+            if i == base:
+                complementary += bases_co
+
+    return complementary
