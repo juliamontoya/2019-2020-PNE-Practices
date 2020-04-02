@@ -1,6 +1,5 @@
 import termcolor
 
-termcolor.cprint("Testing the colors", 'green')
-termcolor.cprint("Another color", 'magenta')
 
+termcolor.cprint("Hey! this is printed in green!", 'green')
 
