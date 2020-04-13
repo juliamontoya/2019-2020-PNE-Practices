@@ -1,22 +1,23 @@
-from seq1 import Seq
+from seq1 import *
 import socket
 import termcolor
 
-
 IP = "127.0.0.1"
 PORT = 8080
-# -- Step 1: create the socket
+
+# --- Step 1: creating the socket
 ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # -- Optional: This is for avoiding the problem of Port already in use
 ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-# -- Step 2: Bind the socket to server's IP and PORT
+# --- Step 2: Bind the socket to the server's IP and PORT
 ls.bind((IP, PORT))
 
-# -- Step 3: Configure the socket for listening
+# --- Step 3: Convert into a listening socket
 ls.listen()
-print("Server is configured!")
+
+print("Server is configured!!")
 
 listsequences = ["AATTCCTACTGAACACTGGATGGGTGTACA", "GTGATACTAGATCACAACTTAGTCAGTCGT", "AAACCCTATGAGCTCGAGCTGATCGACATG",
                  "TTTACTTCGGATCACGATGCATAGTTACCA", "ACTTACGATCGTATCGACAAATCGTTTGCA"]
