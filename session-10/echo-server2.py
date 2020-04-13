@@ -1,50 +1,46 @@
 import socket
+import termcolor
 
-IP = "212.128.253.174"
-PORT = 8082
-count = 0
+IP = "127.0.0.1"
+PORT = 8080
 
-#step1: creating the socket
+# --- Step 1: creating the socket
+ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-ls= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # -- Optional: This is for avoiding the problem of Port already in use
 ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-
-
-#step 2: bind the socket to the server's IP and PORT
-
+# --- Step 2: Bind the socket to the server's IP and PORT
 ls.bind((IP, PORT))
 
-
-
-#step 3 : convert this general socket into a listening socket
+# --- Step 3: Convert into a listening socket
 ls.listen()
 
-print("server is configured!!")
-while True :
+print("Server is configured!!")
+number_con = 0
 
+while True:
+    print("Waiting for Clients to connect")
     try:
-        # step 4 (main loop) : wait for client to connect
-
-        (cs, client_ip_port) = ls.accept()  #on the variable cs we have the socket to comunicate with the variable y en la otra el ip y port
+        # --- Step 4: Wait for clients tro connect
+        (cs, client_ip_port) = ls.accept()
     except KeyboardInterrupt:
-        print("server is done!")
+        print("Server is done!")
         ls.close()
         exit()
     else:
-        # step 5 (main loop) : receiving information from the client
+        number_con += 1
+        print("CONNECTION: {}. From the IP: {}".format(number_con, client_ip_port))
+
+        # --- Step 5: Receiving information from the client
         msg_raw = cs.recv(2000)
         msg = msg_raw.decode()
-        count += 1
 
-        print("CONNECTION",count)
-        print(f"Receive message: {msg}")
-        print("Client IP, PORT:",client_ip_port)
+        print(f" Received message: ", end="")
+        termcolor.cprint(msg, "green")
 
-        #step 6 (mainloop) : send a response to the client
-
-        response = f"ECHO: {msg}\n "
+        # --- Step 6: Send a response message to the client
+        response = "ECHO: " + msg
         cs.send(response.encode())
 
         cs.close()
