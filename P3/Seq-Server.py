@@ -1,82 +1,98 @@
-from seq1 import *
+from seq1 import Seq
 import socket
 import termcolor
 
-IP = "127.0.0.1"
+# Configure the Server's IP and PORT
 PORT = 8080
+IP = "127.0.0.1"
 
-# --- Step 1: creating the socket
+seq_list = ["TGTGAACATTCTGCACAGGTCTCTGGCTGCGCCTGGGCGGGTTTCTT", "CAGGAGGGGACTGTCTGTGTTCTCCCTCCCTCCGAGCTCCAGCCTTC",
+            "CTCCCAGCTCCCTGGAGTCTCTCACGTAGAATGTCCTCTCCACCCC", "GAACTCCTGCAGGTTCTGCAGGCCACGGCTGGCCCCCCTCGAAAGT",
+            "CTGCAGGGGGACGCTTGAAAGTTGCTGGAGGAGCCGGGGGGAA"]
+
+# -- Step 1: create the socket
 ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # -- Optional: This is for avoiding the problem of Port already in use
 ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-# --- Step 2: Bind the socket to the server's IP and PORT
+# -- Step 2: Bind the socket to server's IP and PORT
 ls.bind((IP, PORT))
 
-# --- Step 3: Convert into a listening socket
+# -- Step 3: Configure the socket for listening
 ls.listen()
 
-print("Server is configured!!")
-
-listsequences = ["AATTCCTACTGAACACTGGATGGGTGTACA", "GTGATACTAGATCACAACTTAGTCAGTCGT", "AAACCCTATGAGCTCGAGCTGATCGACATG",
-                 "TTTACTTCGGATCACGATGCATAGTTACCA", "ACTTACGATCGTATCGACAAATCGTTTGCA"]
-FOLDER = "../Session-04/"
-list_names = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
-ext = ".txt"
-
-aa = True
-while aa:
+while True:
+    # -- Waits for a client to connect
     print("Waiting for Clients to connect")
+
     try:
-        # --- Step 4: Wait for clients tro connect
         (cs, client_ip_port) = ls.accept()
+
+    # -- Server stopped manually
     except KeyboardInterrupt:
-        print("Server is done!")
+        print("Server stopped by the user")
+
+        # -- Close the listenning socket
         ls.close()
+
+        # -- Exit!
         exit()
+
     else:
-        msg_raw = cs.recv(2000)
+
+        # -- Read the message from the client
+        # -- The received message is in raw bytes
+        msg_raw = cs.recv(2048)
+
+        # -- We decode it for converting it
+        # -- into a human-redeable string
         msg = msg_raw.decode()
-        n = msg.find(" ")
-        command = msg[:n]
-        termcolor.cprint(command, "green")
-        sequence = msg[n + 1:]
-        if msg == "PING":
-            response = "OK!"
+        argument_command = msg[msg.find(" ") + 1:]
+        response = "ERROR"
+
+        # PING command
+        if "PING" in msg:
+            response = "OK!\n"
+
+        # GET command
         elif "GET" in msg:
-            chain = int(sequence)
-            seq = listsequences[chain]
-            response = seq
+            response = seq_list[int(argument_command)]
+
+        # INFO command
         elif "INFO" in msg:
-            s = Seq(sequence)
-            a = s.count()
-            b = s.len()
-            listvalues = list(a.values())
-            listt = []
-            for value in listvalues:
-                listt.append(f"{value} {round(value/b * 100), 2}%")
-            listkeys = list(a.keys())
-            d = dict(zip(listkeys, listt))
-            sol = ""
-            for n in listkeys:
-                a = listkeys.index(n)
-                sol = sol + "\n" + str(listkeys[a]) + " = " + str(listt[a])
+            seq_info = Seq(argument_command)
+            count_bases_string = ""
+            for base, count in seq_info.count().items():
+                s_base = str(base) + ": " + str(count) + " (" + str(
+                    round(count / seq_info.len() * 100, 2)) + "%)" + "\n"
+                count_bases_string += s_base
 
-            response = f"Sequence: {s} \nThe length is: {b} \n{sol}"
+            response = ("Sequence: " + str(seq_info) + "\n" +
+                        "Total length: " + str(seq_info.len()) + "\n" +
+                        count_bases_string)
+
         elif "COMP" in msg:
-            s = Seq(sequence)
-            response = s.seq_complement()
+            seq_comp = Seq(argument_command)
+            response = seq_comp.complement() + "\n"
+
         elif "REV" in msg:
-            s = Seq(sequence)
-            response = s. seq_reverse()
+            seq_rev = Seq(argument_command)
+            response = seq_rev.reverse() + "\n"
+
         elif "GENE" in msg:
+            gene = argument_command
             s = Seq()
-            response = s.read_fasta(FOLDER + sequence + ext)
-        else:
-            response = "ERROR"
+            s.read_fasta("../Session-04/" + gene + ".txt")
+            response = str(s) + "\n"
 
+        # -- The message has to be encoded into bytes
+        # Server Console
+
+        termcolor.cprint(msg[:msg.find(" ")], "green")
+        print(response)
+
+        # Client console
         cs.send(response.encode())
-        print(response, "\n")
-
+        # -- Close the data socket
         cs.close()

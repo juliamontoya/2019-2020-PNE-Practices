@@ -1,40 +1,49 @@
 from Client0 import Client
 
+PRACTICE = 3
+EXERCISE = 7
+
+print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
+
+# -- Parameters
 IP = "127.0.0.1"
 PORT = 8080
 
 # -- Create a client object
 c = Client(IP, PORT)
-print(c)
+sequence_test = "ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA"
 
-# exercise 1 PING COMMAND
+print("Connection to SERVER at", IP, ", PORT: ", PORT)
+
+# TEST PING
 print("* Testing PING...")
 print(c.talk("PING"))
 
-# exercise 2 GET COMMAND
+# TEST GET
 print("* Testing GET...")
-for n in range(0,5):
-    print("Gene", n, c.talk(f"GET {n}"))
+print("GET 0:", c.talk("GET 0"))
+print("GET 1:", c.talk("GET 1"))
+print("GET 2:", c.talk("GET 2"))
+print("GET 3:", c.talk("GET 3"))
+print("GET 4:", c.talk("GET 4"))
 
-sequence = c.talk("GET 0")
-# exercise 3 INFO COMMAND
+# TEST INFO
 print("* Testing INFO...")
-print(c.talk("INFO " + sequence))
+print(c.talk("INFO " + sequence_test))
 
-# exercise 4 COMP COMMAND
+# TEST COMP
 print("* Testing COMP...")
-print("COMP " + sequence)
-print(c.talk("COMP " + sequence))
+print("COMP " + sequence_test)
+print(c.talk("COMP " + sequence_test))
 
-# exercise 5 REV COMMAND
+# TEST REV
 print("* Testing REV...")
-print("REV " + sequence)
-print(c.talk("REV " + sequence))
+print("REV " + sequence_test)
+print(c.talk("REV " + sequence_test))
 
-# exercise 6 GENE COMMAND
+# TEST REV
 print("* Testing GENE...")
-list_names = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
-for file in list_names:
+files_list = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
+for file in files_list:
     print("GENE", file)
     print(c.talk("GENE " + file))
-
