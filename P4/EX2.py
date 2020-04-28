@@ -1,6 +1,3 @@
-#Escribir un servidor web que devuelva el archivo A.html cuando el cliente solicite la informacion de  / A.
-# Cuando la URL http://127.0.0.1:8080/info/A está escrita en el navegador, deberíamos ver la página web de la base A.
-# Si se solicita otro recurso, el servidor enviará un mensaje de respuesta con un cuerpo en blanco.
 
 import socket
 import termcolor
