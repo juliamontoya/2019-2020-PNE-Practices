@@ -4,6 +4,7 @@ from pathlib import Path
 
 import termcolor
 from seq0 import *
+# with * we import everything
 from seq1 import *
 
 # Define the Server's port
@@ -33,8 +34,8 @@ def html_folder(title, h1, body):
 
     return main_message
 
-
-def ex4(sequence, info, result):
+# ex4
+def operation_service(sequence, info, result):
     main_message = f"""
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -84,6 +85,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         if self.path == "/":
             contents = Path("form-4.html").read_text()
             self.send_response(200)
+
         elif "/ping" in self.path:
             h1 = "PING OK"
             body = "The sequence is running"
@@ -121,13 +123,13 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     a = listkeys.index(n)
                     sol = sol + "\n" + str(listkeys[a]) + " = " + str(listt[a])
                 response = f"The length is: {b} \n{sol}"
-                contents = ex4(seq, "INFO", response)
+                contents = operation_service(seq, "INFO", response)
             elif "COMP" in self.path:
                 res = s.complement()
-                contents = ex4(seq, "COMP", res)
+                contents = operation_service(seq, "COMP", res)
             elif "REV" in self.path:
                 res = s.reverse()
-                contents = ex4(seq, "REV", res)
+                contents = operation_service(seq, "REV", res)
             self.send_response(200)
         else:
             contents = Path("Error.html").read_text()
