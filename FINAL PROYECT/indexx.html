@@ -1,44 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>INDEX</title>
-</head>
-<body style="background-color: lightpink;">
-    <h1>Browsing Human and Vertebrate Genome</h1>
-    <h2>BASIC Level services</h2>
-    <form action="listSpecies" method="get">
-    <p> 1)list of species in genome data base : </p>
+    <head>
+        <meta charset="utf-8">
+        <title>MAIN PAGE</title>
+    </head>
+<body style="background-color: #FAB6F5 ">
+<table>
+  <tr>
+    <td><font size="10" face="Tahoma, Arial, MS Sans Serif" color="#953166"><b>Browsing Human and Vertebrate Genome</b></font></td>
+  </tr>
+  <tr>
+    <td><font size="6" face="Tahoma, Arial, MS Sans Serif" color="#953166"><b>Basic Level Services</b></font></td>
+  </tr>
+  <tr>
+</table>
+<form  action="listSpecies" method="get">
+ <table>
+  <tr>
+  <tr height="50">
+  <td width="350"><p><font size="4" face="Tahoma, Arial, MS Sans Serif" color="#953166"><b></b>1) List of species in genome data base :</font></p></td>
+</tr>
+   <td><font size="4" face="Tahoma, Arial, MS Sans Serif" color="#953166"><b></b> Limit :</font></td>
+   <td>
+ <input name="limit" type="Text">
+   </td>
+   <td>
+   <input type="submit" value="SEND">
+   </td>
+   <td>
+   <input type="reset" value="DELETE">
+   </td>
+ </tr>
+ </table>
+ </form>
+ <form  action="karyotype" method="get">
+ <table>
+  <tr>
+  <tr height="50">
+  <td width="350" ><p><font size="4" face="Tahoma, Arial, MS Sans Serif" color="#953166"><b></b>2) Information about the Karyotype :</font></p></td>
+</tr>
+   <td><font size="4" face="Tahoma, Arial, MS Sans Serif" color="#953166"><b></b> Select the Species :</font> </td>
+   <td>
+ <input name="limit" type="Text">
+   </td>
+   <td>
+   <input type="submit" value="SEND">
+   </td>
+   <td>
+   <input type="reset" value="DELETE">
+   </td>
+ </tr>
+ </table>
+ </form>
+ <form  action="chromosomeLength" method="get">
+ <table>
+  <tr height="50" >
+  <td width="350"><p><font size="4" face="Tahoma, Arial, MS Sans Serif" color="#953166"><b></b>3) Chromosome Length :</font></p></td>
+</tr>
+<tr>
+   <td><font size="4" face="Tahoma, Arial, MS Sans Serif" color="#953166"><b></b> Select the Species :</font></td>
 
-            Limit:
-                <input type="text" name="limit">
-                <br>
-                <br>
-                <input type="submit" value="SEND">
+   <td >
+ <input name="limit" type="Text" >
+   </td>
+   <td>
+   <input type="submit" value="SEND">
+   </td>
+   <td>
+   <input type="reset" value="DELETE">
+   </td>
+ </tr>
+ <tr>
+   <td><font size="4" face="Tahoma, Arial, MS Sans Serif" color="#953166"><b></b> Select a Chromosome :</font></td>
 
-    </form><form action = 'karyotype' method = 'get'>
-    <p> 2) Information about the Karyotype: </p>
-
-            Limit:
-                <input type="text" name="Specie">
-                <br>
-                <br>
-                <input type="submit" value="SEND">
-
-    </form><form action = 'chromosomeLength' method = 'get'>
-    <p> 3)Chromosome Length: </p>
-
-            Limit:
-                <input type="text" name="species">
-                <br>
-                <br>
-                Select a chromosome
-                <input type="text" name="chromo">
-                <br>
-                <br>
-                <input type="submit" value="SEND">
-
-
-        </form>
-    </body>
+   <td >
+ <input name="limit" type="Text" >
+   </td>
+ </tr>
+ </table>
+ </form>
+</body>
 </html>
