@@ -13,3 +13,5 @@ sequence = seq_read_fasta(FOLDER + filename)
 print("Gene " + filename)
 print("Frag:", sequence[:length_bases])
 print("Rev:", seq_reverse(sequence[:length_bases]))
+# Implement the seq_reverse(seq) function, that calculates the reverse of the given sequence.
+# Imaging we have this sequence: "ATTCG". Its reverse is: "GCTTA"

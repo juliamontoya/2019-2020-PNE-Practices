@@ -1,6 +1,6 @@
-#Write a python program that automatically calculate the answer to this question:
+# Write a python program that automatically calculate the answer to this question:
 
-#hich is the most frequent base in each gene?
+# Which is the most frequent base in each gene?
 from seq0 import *
 
 print("-----| Exercise 8 |------")
